@@ -1,6 +1,8 @@
 #ifndef FILAPROCESSOS_H
 #define FILAPROCESSOS_H
 
+#include <stdbool.h>
+
 #define TAM 32
 
 /*
@@ -11,10 +13,11 @@ A árvore armazena o nome e valor de uma variável declarada dentro de um escopo
 typedef struct pilhaExecucao PilhaExecucao;
 typedef struct escopo Escopo;
 typedef struct no No;
+typedef struct registro Registro;
 
-pilhaExecucao* criarPilha();
+PilhaExecucao* criarPilha();
 void destroiPilha(PilhaExecucao **ppPilha);
-// void adicionaPilha();
+void adicionaPilha();
 void executar(const char *nomeArquivo);
 
 Escopo* criarEscopo();
