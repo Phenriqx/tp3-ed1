@@ -17,8 +17,10 @@ typedef struct registro Registro;
 
 PilhaExecucao* criarPilha();
 void destroiPilha(PilhaExecucao **ppPilha);
-void adicionaPilha();
+void adicionaPilha(PilhaExecucao *pPilha);
 void executar(const char *nomeArquivo);
+
+int lePalavras(FILE* file);
 
 Escopo* criarEscopo();
 void destroiEscopo(Escopo **ppEscopo);

@@ -1,5 +1,6 @@
 #include <stdio.h>
 #include <stdlib.h>
+#include <string.h>
 
 #include "filaprocessos.h"
 
@@ -26,6 +27,7 @@ struct pilhaExecucao {
 };
 
 No* noCria(Registro reg);
+void iniciaArvore(No **ppNo);
 void destroiArvore(No **ppNo);
 
 PilhaExecucao* criarPilha() {
@@ -69,8 +71,17 @@ No* noCria(Registro reg) {
     return pNo;
 }
 
-void adicionaPilha(PilhaExecucao *pPilha, Escopo *pEscopo) {
+void adicionaPilha(PilhaExecucao *pPilha) {
+    if (!pPilha)
+        return;
 
+    Escopo* e = criarEscopo();
+    pPilha->topo = e;
+    pPilha->n++;
+}
+
+void iniciaArvore(No **ppNo) {
+    *ppNo = NULL;
 }
 
 void destroiArvore(No **ppNo) {
@@ -83,14 +94,49 @@ void destroiArvore(No **ppNo) {
     *ppNo = NULL;
 }
 
-void executar(const char *nomeArquivo) {
+void executar(const char *nomeArquivo, PilhaExecucao* pPilha) {
     FILE *file = fopen(nomeArquivo, "r");
     if (!file) {
         printf("Não foi possível abrir o arquivo.\n");
         return;
     }
 
-    // operações no arquivo...
+    do {
+        int code = lePalavras(file);
+
+        switch (code) {
+            // begin
+            case 1:
+                adicionaPilha(pPilha);
+                break;
+            // end
+            case 2:
+                break;
+            // var
+            case 3:
+                break;
+            // print
+            case 4: 
+                break;
+        }
+
+    } while (lePalavras(file) != EOF);
 
     fclose(file);
+}
+
+// lê uma palavra no arquivo e retorna um dado valor com base na palavra. isso se deve ao switch nao lidar com strings.
+int lePalavras(FILE *file) {
+    char palavra[TAM];
+    if (fscanf(file, "%s", palavra) == EOF)
+        return EOF;
+
+    if (strcmp(palavra, "begin") == 0)
+        return 1;
+    if (strcmp(palavra, "end") == 0)
+        return 2;
+    if (strcmp(palavra, "var") == 0)
+        return 3;
+    if (strcmp(palavra, "print") == 0)
+        return 4;
 }
