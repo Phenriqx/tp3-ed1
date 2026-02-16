@@ -46,9 +46,9 @@ int destroiPilha(PilhaExecucao **ppPilha) {
     if (!ppPilha || !*ppPilha)
         return 0;
     Escopo *e = (*ppPilha)->topo;
-    if(e == NULL){
+    if(e == NULL)
         value = 3;
-    }
+
     while (e) {
         Escopo *prox = e->next;
         destroiArvore(&e->raiz);
@@ -108,7 +108,6 @@ void adicionarNaArvore(PilhaExecucao *pPilha, No *novo){
     }
 
     adicionaRecursivo(pPilha->topo->raiz, novo);
-
 }
 
 //adiciona na ABB o No *novo
@@ -139,33 +138,24 @@ void adicionaRecursivo(No *raiz, No *novo){
         }
         adicionaRecursivo(raiz->right, novo);
     }
-
-
 }
 
 //função que procura e imprimi se tiver na árvore, o nome nesse caso é a chave do registro
 int procuraArvore(No *raiz, const char nome[TAM]){
-    
-    if (!raiz){
+    if (!raiz)
         return 0;
-    };
 
     int cmp = strcmp(raiz->reg.nome, nome);
 
     if (cmp == 0) {
-        
         printf("%s\n", raiz->reg.valor);
         return 1;
     }
 
-    if(cmp > 0){
+    if(cmp > 0)
         return procuraArvore(raiz->left, nome);
-    }
-    if(cmp < 0){
-        
+    if(cmp < 0)
         return procuraArvore(raiz->right, nome);
-    }
-    
 
     return 0;
 }
@@ -199,7 +189,6 @@ void removePilha(PilhaExecucao *pPilha){
 
 }
 
-
 int executar(const char *nomeArquivo, PilhaExecucao* pPilha) {
     FILE *file = fopen(nomeArquivo, "r");
     if (!file) {
@@ -210,7 +199,7 @@ int executar(const char *nomeArquivo, PilhaExecucao* pPilha) {
     int code;
     //lê o arquivo inteiro
     while ((code = lePalavras(file)) != EOF){
-    
+
         switch (code) {
             // begin
             case 1:
@@ -232,7 +221,7 @@ int executar(const char *nomeArquivo, PilhaExecucao* pPilha) {
 
                 break;
             // print
-            case 4: 
+            case 4:
                 //se nao conseguir imprimir(ou seja, não achou) retorna 1, encerrando o programa. A mensagem de erro está na função
                 if(!imprimir(file, pPilha)){
                     return 1;
@@ -280,13 +269,10 @@ void leValor(FILE *file, PilhaExecucao *pPilha){
     No *novo = noCria(reg);
 
     adicionarNaArvore(pPilha, novo);
-
-
-
 }
+
 // procura nas árvores para imprimir
 int imprimir(FILE *file, PilhaExecucao *pPilha){
-
     char nome[TAM];
 
     fscanf(file, "%s", nome);
@@ -296,13 +282,10 @@ int imprimir(FILE *file, PilhaExecucao *pPilha){
     while(escop != NULL){
         resp = procuraArvore(escop->raiz, nome);
 
-        if(resp == 1){
+        if(resp == 1)
             return 1;
-        }
 
         escop = escop->next;
-
-
     }
 
     printf("Variavel %s nao declarada\n", nome);

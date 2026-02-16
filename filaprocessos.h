@@ -29,6 +29,5 @@ int lePalavras(FILE* file);
 
 Escopo* criarEscopo();
 void destroiEscopo(Escopo **ppEscopo);
-// void adicionaVar();
 
 #endif
