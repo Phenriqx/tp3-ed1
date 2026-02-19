@@ -101,7 +101,7 @@ void adicionaPilha(PilhaExecucao *pPilha) {
 void adicionarNaArvore(PilhaExecucao *pPilha, No *novo){
     if (!pPilha || !pPilha->topo || !novo) return;
     // se não houver uma árvore ainda inicia ela, adicionando o Nó novo como a raiz
-    if(pPilha->topo->raiz == NULL){
+    if (pPilha->topo->raiz == NULL){
 
         pPilha->topo->raiz = novo;
         return;
@@ -124,14 +124,14 @@ void adicionaRecursivo(No *raiz, No *novo){
         return;
     }
 
-    if(cmp < 0){
+    if (cmp < 0){
         if(raiz->left == NULL){
             raiz->left = novo;
             return;
         }
         adicionaRecursivo(raiz->left, novo);
     }
-    if(cmp > 0){
+    if (cmp > 0){
         if(raiz->right == NULL){
             raiz->right = novo;
             return;
@@ -152,9 +152,9 @@ int procuraArvore(No *raiz, const char nome[TAM]){
         return 1;
     }
 
-    if(cmp > 0)
+    if (cmp > 0)
         return procuraArvore(raiz->left, nome);
-    if(cmp < 0)
+    if (cmp < 0)
         return procuraArvore(raiz->right, nome);
 
     return 0;
@@ -204,9 +204,9 @@ int executar(const char *nomeArquivo, PilhaExecucao* pPilha) {
             // begin
             case 1:
                 //Se for beguin adiciona uma nova pilha
-                if(pPilha){
+                if (pPilha)
                     adicionaPilha(pPilha);
-                }
+
                 break;
             // end
             case 2:
@@ -223,9 +223,9 @@ int executar(const char *nomeArquivo, PilhaExecucao* pPilha) {
             // print
             case 4:
                 //se nao conseguir imprimir(ou seja, não achou) retorna 1, encerrando o programa. A mensagem de erro está na função
-                if(!imprimir(file, pPilha)){
+                if (!imprimir(file, pPilha))
                     return 1;
-                }
+
                 break;
         }
 
@@ -279,10 +279,10 @@ int imprimir(FILE *file, PilhaExecucao *pPilha){
     int resp;
     Escopo *escop = pPilha->topo;
     // passa por todas as árvores caso não ache na primeira
-    while(escop != NULL){
+    while (escop != NULL) {
         resp = procuraArvore(escop->raiz, nome);
 
-        if(resp == 1)
+        if (resp == 1)
             return 1;
 
         escop = escop->next;
